@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Criador de Assinatura de E-mail</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="description" content="Crie uma assinatura de e-mail personalizada para sua empresa.">
+  <meta property="og:title" content="Criador de Assinatura de E-mail">
+  <meta property="og:description" content="Crie uma assinatura de e-mail personalizada para sua empresa.">
+  <meta property="og:image" content="https://i.imgur.com/5XQJQZw.png">
+  <meta property="og:url" content="https://www.criadordeassinatura.com.br">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Criador de Assinatura de E-mail">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:locale:alternate" content="es_ES">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Criador de Assinatura de E-mail">
+  <meta name="twitter:description" content="Crie uma assinatura de e-mail personalizada para sua empresa.">
+  <meta name="twitter:image" content="https://i.imgur.com/5XQJQZw.png">
+  <meta name="twitter:image:alt" content="Criador de Assinatura de E-mail">
+  <meta name="twitter:site" content="@criadorassinatura">
+  <meta name="twitter:creator" content="@criadorassinatura">
+  <meta name="twitter:domain" content="criadordeassinatura.com.br">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #ffffff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    h2 {
+      text-align: center;
+      color: #424242;
+      margin-top: 0;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 5px;
+      color: #616161;
+    }
+    
+    .form-group input[type="text"],
+    .form-group select,
+    .form-group input[type="file"],
+    .form-group input[type="color"],
+    .form-group input[type="checkbox"] {
+      width: -webkit-fill-available;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      background-color: #f9f9f9;
+    }
+    
+    .background-image {
+      background-color: #eaeaea;
+      background-image: url('');
+      background-repeat: no-repeat;
+      background-size: cover;
+      border: 1px solid #ccc;
+      box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      height: 200px;
+      position: relative;
+      margin-top: 20px;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    
+    .signature {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      width: 100%;
+      cursor: move;
+      pointer-events: auto;
+    }
+    
+    .signature p {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.4;
+      color: #212121;
+    }
+    
+    .download-button {
+      text-align: center;
+      margin-top: 20px;
+    }
+    
+    .download-button button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 4px;
+      border: none;
+      background-color: #2196f3;
+      color: #ffffff;
+      cursor: pointer;
+    }
+    
+    .download-button button:hover {
+      background-color: #1976d2;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2 id="page-title">Criador de Assinatura de E-mail</h2>
+    <div class="background-image">
+      <div class="signature" id="draggable-signature">
+        <p id="generated-signature"></p>
+      </div>
+    </div>
+    <div class="form-group" style="margin-top: 25px;">
+      <label for="language" id="language-label">Idioma:</label>
+      <select id="language" onchange="changeLanguage()">
+        <option value="pt" id="portuguese-option">Português</option>
+        <option value="en" id="english-option">English</option>
+        <option value="es" id="spanish-option">Español</option>
+      </select>
+    </div>
+    <form id="signature-form">
+      <div class="form-group">
+        <label for="name" id="name-label">Nome:</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      <div class="form-group">
+        <label for="position" id="position-label">Cargo:</label>
+        <input type="text" id="position" name="position" required>
+      </div>
+      <div class="form-group">
+        <label for="phone" id="phone-label">Telefone:</label>
+        <input type="text" id="phone" name="phone" required>
+      </div>
+      <div class="form-group">
+        <label for="website" id="website-label">Site:</label>
+        <input type="text" id="website" name="website" required>
+      </div>
+      <div class="form-group">
+        <label for="font-color" id="font-color-label" style="display: inline;">Cor da fonte:</label>
+        <input type="color" id="font-color" name="font-color" value="#000000" style="width: 60px; height: 40px; padding: 0px 5px;">
+      </div>
+      <div class="form-group" style="flex-direction: row;">
+        <input type="checkbox" id="font-bold" name="font-bold" style="width: fit-content;">
+        <label for="font-bold" id="bold-label" style="display: inline;">Negrito:</label>
+      </div>
+      <div class="form-group">
+        <label for="background-color" id="background-color-label" style="display: inline;">Cor do fundo:</label>
+        <input type="color" id="background-color" name="background-color" value="#eaeaea" style="width: 60px; height: 40px; padding: 0px 5px;">
+      </div>
+      <div class="form-group">
+        <label for="image-upload" id="image-upload-label">Selecione uma imagem de fundo (500x200px):</label>
+        <input type="file" id="image-upload" accept="image/*">
+      </div>
+      <div class="form-group">
+        <label for="vertical-align" id="vertical-align-label">Alinhamento vertical:</label>
+        <select id="vertical-align">
+          <option value="top">Topo</option>
+          <option value="center" selected>Centro</option>
+          <option value="bottom">Baixo</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="horizontal-align" id="horizontal-align-label">Alinhamento horizontal:</label>
+        <select id="horizontal-align">
+          <option value="left">Esquerda</option>
+          <option value="center" selected>Centro</option>
+          <option value="right">Direita</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="text-align" id="text-align-label">Alinhamento do texto:</label>
+        <select id="text-align">
+          <option value="left">Esquerda</option>
+          <option value="center" selected>Centro</option>
+          <option value="right">Direita</option>
+        </select>
+      </div>
+
+      <div class="download-button">
+        <button type="button" onclick="downloadSignature()" id="download-button">Baixar Assinatura</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    var draggableElement = document.getElementById('draggable-signature');
+    var offsetX, offsetY;
+
+    draggableElement.addEventListener('mousedown', function(e) {
+      e.preventDefault();
+      
+      offsetX = e.clientX - Math.min((window.innerWidth * 0.4), 220);
+      offsetY = e.clientY - Math.min((window.innerHeight * 0.2), 135);
+      document.addEventListener('mousemove', moveElement);
+      document.addEventListener('mouseup', releaseElement);
+    });
+
+    function moveElement(e) {
+      draggableElement.style.left = e.clientX - offsetX + 'px';
+      draggableElement.style.top = e.clientY - offsetY + 'px';
+    }
+
+    function releaseElement() {
+      document.removeEventListener('mousemove', moveElement);
+      document.removeEventListener('mouseup', releaseElement);
+    }
+
+    var languageSelect = document.getElementById('language');
+    var languageStrings = {
+      pt: {
+        pageTitle: 'Criador de Assinatura de E-mail',
+        nameLabel: 'Nome:',
+        positionLabel: 'Cargo:',
+        phoneLabel: 'Telefone:',
+        websiteLabel: 'Site:',
+        imageUploadLabel: 'Selecione uma imagem de fundo (500x200px):',
+        verticalAlignLabel: 'Alinhamento vertical da imagem:',
+        horizontalAlignLabel: 'Alinhamento vertical da imagem:',
+        textAlignLabel: 'Alinhamento do texto:',
+        fontColorLabel: 'Cor da fonte:',
+        boldLabel: 'Negrito',
+        languageLabel: 'Idioma:',
+        portugueseOption: 'Português',
+        englishOption: 'English',
+        spanishOption: 'Español',
+        downloadButton: 'Baixar Assinatura',
+        fileFormatLabel: 'Formato do arquivo:',
+        backgroundColorLabel: 'Cor do fundo:',
+      },
+      en: {
+        pageTitle: 'Email Signature Creator',
+        nameLabel: 'Name:',
+        positionLabel: 'Role:',
+        phoneLabel: 'Phone:',
+        websiteLabel: 'Website:',
+        imageUploadLabel: 'Select a background image (500x200px):',
+        verticalAlignLabel: 'Image Vertical Alignment:',
+        horizontalAlignLabel: 'Image Horizontal Alignment:',
+        textAlignLabel: 'Text Alignment:',
+        fontColorLabel: 'Font Color:',
+        boldLabel: 'Bold',
+        languageLabel: 'Language:',
+        portugueseOption: 'Português',
+        englishOption: 'English',
+        spanishOption: 'Español',
+        downloadButton: 'Download Signature',
+        fileFormatLabel: 'File Format:',
+        backgroundColorLabel: 'Background Color:',
+      },
+      es: {
+        pageTitle: 'Creador de Firma de Correo Electrónico',
+        nameLabel: 'Nombre:',
+        positionLabel: 'Cargo:',
+        phoneLabel: 'Teléfono:',
+        websiteLabel: 'Sitio web:',
+        imageUploadLabel: 'Seleccione una imagen de fondo (500x200px):',
+        verticalAlignLabel: 'Imagem Alineación vertical:',
+        horizontalAlignLabel: 'Imagem Alineación horizontal:',
+        textAlignLabel: 'Alineación del texto:',
+        fontColorLabel: 'Color de fuente:',
+        boldLabel: 'Negrita',
+        languageLabel: 'Idioma:',
+        portugueseOption: 'Português',
+        englishOption: 'English',
+        spanishOption: 'Español',
+        downloadButton: 'Descargar Firma',
+        fileFormatLabel: 'Formato del archivo:',
+        backgroundColorLabel: 'Color de fondo:',
+      }
+    };
+
+    function changeLanguage() {
+      var selectedLanguage = languageSelect.value;
+      var strings = languageStrings[selectedLanguage];
+
+      document.getElementById('page-title').textContent = strings.pageTitle;
+      document.getElementById('name-label').textContent = strings.nameLabel;
+      document.getElementById('position-label').textContent = strings.positionLabel;
+      document.getElementById('phone-label').textContent = strings.phoneLabel;
+      document.getElementById('website-label').textContent = strings.websiteLabel;
+      document.getElementById('vertical-align-label').textContent = strings.verticalAlignLabel;
+      document.getElementById('horizontal-align-label').textContent = strings.horizontalAlignLabel;
+      document.getElementById('text-align-label').textContent = strings.textAlignLabel;
+      document.getElementById('font-color-label').textContent = strings.fontColorLabel;
+      document.getElementById('bold-label').textContent = strings.boldLabel;
+      document.getElementById('language-label').textContent = strings.languageLabel;
+      document.getElementById('portuguese-option').textContent = strings.portugueseOption;
+      document.getElementById('english-option').textContent = strings.englishOption;
+      document.getElementById('spanish-option').textContent = strings.spanishOption;
+      document.getElementById('download-button').textContent = strings.downloadButton;
+      document.getElementById('image-upload-label').textContent = strings.imageUploadLabel;
+      //document.getElementById('file-format-label').textContent = strings.fileFormatLabel;
+      document.getElementById('background-color-label').textContent = strings.backgroundColorLabel;
+    }
+
+    function updateSignaturePreview() {
+      var name = document.getElementById('name').value;
+      var position = document.getElementById('position').value;
+      var phone = document.getElementById('phone').value;
+      var website = document.getElementById('website').value;
+      var verticalAlign = document.getElementById('vertical-align').value;
+      var horizontalAlign = document.getElementById('horizontal-align').value;
+      var textAlign = document.getElementById('text-align').value;
+      var fontColor = document.getElementById('font-color').value;
+      var isBold = document.getElementById('font-bold').checked;
+      var signatureText = name + '<br>' + position + '<br>' + phone + '<br>' + website;
+      var backgroundColor = document.getElementById('background-color').value;
+      
+      var signatureElement = document.getElementById('generated-signature');
+      signatureElement.innerHTML = signatureText;
+      signatureElement.style.color = fontColor;
+      signatureElement.style.fontWeight = isBold ? 'bold' : 'normal';
+      signatureElement.style.textAlign = textAlign;
+
+      var containerElement = document.querySelector('.background-image');
+      containerElement.style.backgroundImage = "url('" + getBackgroundImageUrl() + "')";
+      containerElement.style.backgroundPosition = horizontalAlign + " " + verticalAlign;
+      containerElement.style.backgroundColor = backgroundColor;
+    }
+
+    function downloadSignature() {
+      updateSignaturePreview();
+
+      var containerElement = document.querySelector('.background-image');
+      html2canvas(containerElement).then(function(canvas) {
+        var fileFormat = 'jpeg';
+
+        if (document.getElementById('file-format').value === 'png') {
+          fileFormat = 'png';
+        }
+
+        var link = document.createElement('a');
+        link.href = canvas.toDataURL('image/' + fileFormat);
+        link.download = 'assinatura_email.'+ fileFormat;
+        link.click();
+      });
+    }
+
+    function getBackgroundImageUrl() {
+      var fileInput = document.getElementById('image-upload');
+      if (fileInput.files && fileInput.files[0]) {
+        return URL.createObjectURL(fileInput.files[0]);
+      } else {
+        return '';
+      }
+    }
+
+    // Atualizar a pré-visualização em tempo real ao modificar os campos
+    var formInputs = document.querySelectorAll('#signature-form input, #signature-form select');
+    for (var i = 0; i < formInputs.length; i++) {
+      formInputs[i].addEventListener('input', updateSignaturePreview);
+    }
+
+    // Definir o idioma padrão ao carregar a página
+    changeLanguage();
+  </script>
+
+  <script src="./js/html2canvas.hertzen.com_dist_html2canvas.min.js"></script>
+</body>
+</html>
