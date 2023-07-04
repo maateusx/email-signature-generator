@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
   <title>Criador de Assinatura de E-mail</title>
   <meta charset="utf-8">
@@ -131,6 +131,9 @@
         <p id="generated-signature"></p>
       </div>
     </div>
+    <div class="download-button">
+      <button type="button" onclick="downloadSignature()" id="download-button">Baixar Assinatura</button>
+    </div>
     <div class="form-group" style="margin-top: 25px;">
       <label for="language" id="language-label">Idioma:</label>
       <select id="language" onchange="changeLanguage()">
@@ -195,10 +198,6 @@
           <option value="center" selected>Centro</option>
           <option value="right">Direita</option>
         </select>
-      </div>
-
-      <div class="download-button">
-        <button type="button" onclick="downloadSignature()" id="download-button">Baixar Assinatura</button>
       </div>
     </form>
   </div>
